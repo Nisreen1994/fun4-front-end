@@ -20,15 +20,16 @@ class Signup extends Component {
       .then((result) => {
         this.setState({ data: result });
         console.log(this.state.data);
-        this.checkAccount(this.state.data);
+        //this.checkAccount(this.state.data);
       })
       .catch((err) => console.error(this.props.url, err.toString()));
   }
-  checkAccount(listData) {
+  checkAccount() {
     /*var listAccount = listData.map((account) => (
       <li key={account.id}>{account}</li>
     ));
     console.log(listAccount);*/
+    var listData = this.state.data;
     const email = this.state.email;
     //console.log(email);
     listData.map((account) => {
@@ -64,7 +65,7 @@ class Signup extends Component {
   }
 
   submitHndeler(event) {
-    this.getAccount();
+    this.checkAccount();
     /*let url = "http://localhost:8080/account/";
     var data = this.state;
     fetch(url, {
@@ -79,7 +80,7 @@ class Signup extends Component {
     });*/
     event.preventDefault();
   }
-  componentWillMount() {
+  componentDidMount() {
     this.getAccount();
   }
   /*handleCheckboxChange = event =>

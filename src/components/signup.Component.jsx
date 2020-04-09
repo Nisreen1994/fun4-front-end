@@ -12,6 +12,7 @@ class Signup extends Component {
       email: "",
       password: "",
       data: [],
+      checkEmail: false,
     };
   }
   getAccount() {
@@ -27,41 +28,56 @@ class Signup extends Component {
   checkAccount() {
     var listData = this.state.data;
     const email = this.state.email;
-    //console.log(email);
+    console.log(email);
     listData.map((account) => {
       console.log(account.email);
       if (account.email === email) {
         console.log(account.email);
-        return (
+        console.log(this.state.checkEmail);
+        this.setState.checkEmail = true;
+
+        /* return (
           <form>
             <Alert variant="info">
               This {account.email.toString()} is exist you can
               <Alert.Link href="#">Login</Alert.Link>
             </Alert>
           </form>
-        );
-      } else {
-        let url = "http://localhost:8080/account/";
-        var data = this.state;
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(data),
-        }).then((result) => {
-          /* result.json().then((resp) => {
-        console.warn();
-      });*/
-        });
+        );*/
       }
+      /*else {
+        this.setState.checkEmail = false;
+      }*/
     });
-    //console.log(listAccount);
   }
 
   submitHndeler(event) {
-    this.checkAccount();
+    this.checkAccount().bind(this);
+    if (this.state.checkEmail === true) {
+      let url = "http://localhost:8080/account/";
+      var data = this.state;
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((result) => {
+        /*result.json().then((resp) => {
+          console.warn();
+        });*/
+      });
+    } else {
+      console.log("email is exist you can log in");
+      return (
+        <Alert variant="info">
+          This email is exist you can
+          <Alert.Link href="#">Login</Alert.Link>
+        </Alert>
+      );
+      console.log("email is exist you can log in");
+    }
 
     event.preventDefault();
   }

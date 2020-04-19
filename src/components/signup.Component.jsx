@@ -11,8 +11,8 @@ class Signup extends Component {
       staffMember: false,
       email: "",
       password: "",
-      data: [],
       checkEmail: false,
+      data: [],
     };
   }
   getAccount() {
@@ -21,39 +21,24 @@ class Signup extends Component {
       .then((result) => {
         this.setState({ data: result });
         console.log(this.state.data);
-        //this.checkAccount(this.state.data);
       })
       .catch((err) => console.error(this.props.url, err.toString()));
   }
-  checkAccount() {
-    var listData = this.state.data;
+  checkAccount(props) {
+    var listData = this.state.data; // Het is niet veilig dat je client applicatie alle emails krijgt.
     const email = this.state.email;
-    console.log(email);
-    listData.map((account) => {
-      console.log(account.email);
+    var counter_email = 0;
+    for (counter_email = 0; counter_email < listData.length; counter_email++) {
+      var account = listData[counter_email];
       if (account.email === email) {
-        console.log(account.email);
-        console.log(this.state.checkEmail);
-        this.setState.checkEmail = true;
-
-        /* return (
-          <form>
-            <Alert variant="info">
-              This {account.email.toString()} is exist you can
-              <Alert.Link href="#">Login</Alert.Link>
-            </Alert>
-          </form>
-        );*/
+        return true;
       }
-      /*else {
-        this.setState.checkEmail = false;
-      }*/
-    });
+    }
   }
 
   submitHndeler(event) {
-    this.checkAccount().bind(this);
-    if (this.state.checkEmail === true) {
+    // TODO
+    if (!this.checkAccount()) {
       let url = "http://localhost:8080/account/";
       var data = this.state;
       fetch(url, {
@@ -63,12 +48,8 @@ class Signup extends Component {
           Accept: "application/json",
         },
         body: JSON.stringify(data),
-      }).then((result) => {
-        /*result.json().then((resp) => {
-          console.warn();
-        });*/
-      });
-    } else {
+      }).then((result) => {});
+    } else if (this.checkAccount()) {
       console.log("email is exist you can log in");
       return (
         <Alert variant="info">
@@ -76,7 +57,6 @@ class Signup extends Component {
           <Alert.Link href="#">Login</Alert.Link>
         </Alert>
       );
-      console.log("email is exist you can log in");
     }
 
     event.preventDefault();

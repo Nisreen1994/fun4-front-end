@@ -4,13 +4,15 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./components/login.Component";
 import Signup from "./components/signup.Component";
+import OpenOrAddTimesheet from "./components/openOrAddTimesheet.Component";
 
 function App() {
   return (
-    <Router>
+    <OpenOrAddTimesheet />
+    /*<Router>
       <div className="App">
-        <nav class="navbar navbar-expand-sm">
-          <a class="navbar-brand">
+        <nav className="navbar navbar-expand-sm">
+          <a className="navbar-brand">
             <img src="logoNav.png" alt="Logo"></img>
           </a>
           <div className="container">
@@ -41,7 +43,7 @@ function App() {
           </div>
         </div>
       </div>
-    </Router>
+    </Router>*/
   );
 }
 export default App;

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../App.css";
 import "../bootstrap.min.css";
 import { Alert } from "react-bootstrap";
-class Signup extends Component {
+class Signup2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,6 +11,7 @@ class Signup extends Component {
       staffMember: false,
       email: "",
       password: "",
+      checkEmail: false,
       data: [],
     };
   }
@@ -20,64 +21,44 @@ class Signup extends Component {
       .then((result) => {
         this.setState({ data: result });
         console.log(this.state.data);
-        //this.checkAccount(this.state.data);
       })
       .catch((err) => console.error(this.props.url, err.toString()));
   }
-  checkAccount() {
-    /*var listAccount = listData.map((account) => (
-      <li key={account.id}>{account}</li>
-    ));
-    console.log(listAccount);*/
-    var listData = this.state.data;
+  checkAccount(props) {
+    var listData = this.state.data; // Het is niet veilig dat je client applicatie alle emails krijgt.
     const email = this.state.email;
-    //console.log(email);
-    listData.map((account) => {
-      //console.log(account.email);
+    var counter_email = 0;
+    for (counter_email = 0; counter_email < listData.length; counter_email++) {
+      var account = listData[counter_email];
       if (account.email === email) {
-        console.log(account.email);
-        return (
-          <form>
-            <Alert variant="info">
-              This {account.email} is exist you can
-              <Alert.Link href="#">Login</Alert.Link>
-            </Alert>
-          </form>
-        );
-      } else {
-        let url = "http://localhost:8080/account/";
-        var data = this.state;
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(data),
-        }).then((result) => {
-          /* result.json().then((resp) => {
-        console.warn();
-      });*/
-        });
+        return true;
       }
-    });
-    //console.log(listAccount);
+    }
   }
 
   submitHndeler(event) {
-    this.checkAccount();
-    /*let url = "http://localhost:8080/account/";
-    var data = this.state;
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then((result) => {
-      
-    });*/
+    // TODO
+    if (!this.checkAccount()) {
+      let url = "http://localhost:8080/account/";
+      var data = this.state;
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((result) => {});
+    } else if (this.checkAccount()) {
+      console.log("email is exist you can log in");
+      return (
+        <Alert variant="info">
+          This email is exist you can
+          <Alert.Link href="#">Login</Alert.Link>
+        </Alert>
+      );
+    }
+
     event.preventDefault();
   }
   componentDidMount() {
@@ -161,4 +142,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default Signup2;

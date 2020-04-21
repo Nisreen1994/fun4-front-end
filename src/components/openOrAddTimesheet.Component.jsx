@@ -6,37 +6,41 @@ class OpenOrAddTimesheet extends Component {
       timesheet: [],
       projectName: [],
     };
+    // this.getTimesheet = this.getTimesheet.bind(this);
   }
   getTimesheet() {
     fetch("http://localhost:8080/account/1/timesheet", { method: "GET" })
       .then((response) => response.json())
       .then((result) => {
-        this.setState({ timesheet: result.project });
+        this.setState({ timesheet: result });
+        for (var i = 0; i < this.state.timesheet.length; i++) {
+          this.state.projectName.push(this.state.timesheet[i].project);
+        }
         console.log(result);
         console.log(this.state.timesheet);
+        console.log(this.state.projectName);
       })
       .catch((err) => console.error(this.props.url, err.toString()));
   }
-
-  componentDidMount() {
+  componentWillMount() {
     this.getTimesheet();
   }
 
   render() {
-    const { projects } = this.state;
+    //this.getTimesheet();
+    var projects = [];
+    for (var i = 0; i < this.state.projectName.length; i++) {
+      projects.push(this.state.projectName[i]);
+    }
+
     return (
-      /*<div id="project">
+      <div>
         {projects.map((project) => (
           <div>
-            <div key={project.project}> </div>
-            <button>{project.project}</button>
-
-            <div></div>
+            <button>{project}</button>
           </div>
         ))}
-     
-      </div>*/
-      <button>hallo</button>
+      </div>
     );
   }
 }

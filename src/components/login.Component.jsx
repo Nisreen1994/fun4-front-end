@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, Route } from "react-router-dom";
-import Signup from "./signup.Component";
+import Signup from "./signup2.Component";
 
 class Login extends Component {
   state = {};

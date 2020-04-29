@@ -4,12 +4,13 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./components/login.Component";
 import Signup from "./components/signup.Component";
-import DataTable from "./components/timesheet.Component";
 import OpenOrAddTimesheet from "./components/openOrAddTimesheet.Component";
+import Data from "./components/timesheetTable";
+import Signup2 from "./components/signup2.Component";
 
 function App() {
   return (
-    <OpenOrAddTimesheet />
+    <Signup />
     /*<Router>
       <div className="App">
         <nav className="navbar navbar-expand-sm">

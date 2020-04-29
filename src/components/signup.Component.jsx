@@ -15,55 +15,28 @@ class Signup extends Component {
       data: [],
     };
   }
-  getAccount() {
-    fetch("http://localhost:8080/account/")
-      .then((response) => response.json())
-      .then((result) => {
-        this.setState({ data: result });
-        console.log(this.state.data);
-      })
-      .catch((err) => console.error(this.props.url, err.toString()));
-  }
-  checkAccount(props) {
-    var listData = this.state.data; // Het is niet veilig dat je client applicatie alle emails krijgt.
-    const email = this.state.email;
-    var counter_email = 0;
-    for (counter_email = 0; counter_email < listData.length; counter_email++) {
-      var account = listData[counter_email];
-      if (account.email === email) {
-        return true;
-      }
-    }
-  }
 
   submitHndeler(event) {
     // TODO
-    if (!this.checkAccount()) {
-      let url = "http://localhost:8080/account/";
-      var data = this.state;
-      fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(data),
-      }).then((result) => {});
-    } else if (this.checkAccount()) {
-      console.log("email is exist you can log in");
-      return (
-        <Alert variant="info">
-          This email is exist you can
-          <Alert.Link href="#">Login</Alert.Link>
-        </Alert>
-      );
-    }
+
+    let url = "http://localhost:8080/account/";
+    var data = this.state;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((result) => {
+      if (result.ok === true) {
+        alert("you are in");
+      } else alert("you are alredy regestierd");
+    });
 
     event.preventDefault();
   }
-  componentDidMount() {
-    this.getAccount();
-  }
+
   /*handleCheckboxChange = event =>
     this.setState({ checked: event.target.checked });*/
   render() {

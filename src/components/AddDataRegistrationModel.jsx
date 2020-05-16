@@ -10,22 +10,31 @@ class AddDataRegistrationModel extends Component {
       endTime: "",
       description: "",
       data: [],
+      timesheetId: "",
     };
   }
+
   handelSubmit(event) {
     event.preventDefault();
-    const url = "http://localhost:8080/timesheet/3/data";
-    var data = this.state;
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then((result) => {});
-    alert("Data is saved");
+    console.log(this.props.timesheetId);
+    if (this.props.timesheetId === "") {
+      alert("Select a project");
+    } else {
+      const url =
+        "http://localhost:8080/timesheet/" + this.props.timesheetId + "/data";
+      var data = this.state;
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((result) => {});
+      alert("Data is saved");
+    }
   }
+
   render() {
     return (
       <Modal

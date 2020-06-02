@@ -33,6 +33,7 @@ class Data extends Component {
     this.state = {
       data: [],
       addModalShow: false,
+      deleteModal: false,
       editModalShow: false,
       addModelProjectShow: false,
       editModelProjectShow: false,
@@ -40,17 +41,27 @@ class Data extends Component {
       timesheet: [],
       timesheetId: "",
       anchorEl: null,
-      //accountId: this.props.accountIdFromLogIn,
+      //accountId: "",
       projectName: [],
       projectTextValue: "",
+      deleteid: "",
     };
     this.getTimesheet = this.getTimesheet.bind(this);
   }
 
   getTimesheet() {
-    var id = this.props.accountIdFromLogIn;
-    console.log(id);
-    fetch("http://localhost:8080/account/" + 1 + "/timesheet", {
+    var id = localStorage.getItem("accountId");
+    if (id === null || id == 1) {
+      var url = "http://localhost:8080/account/1/timesheet";
+
+      //localStorage.setItem("accountId", 1);
+      //id = localStorage.getItem("accountId");
+    } else {
+      id = localStorage.getItem("accountId");
+      var url = "http://localhost:8080/account/" + id + "/timesheet";
+    }
+    console.log("id=", id);
+    fetch(url, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -104,7 +115,8 @@ class Data extends Component {
     if (
       this.state.timesheetId !== prevState.timesheetId ||
       this.state.addModalShow !== prevState.addModalShow ||
-      this.state.checkUpdate != prevProps.checkUpdate
+      this.state.checkUpdate !== prevProps.checkUpdate ||
+      this.state.editModalShow !== prevState.editModalShow
     ) {
       this.getData();
       this.getProjectTextValue();
@@ -116,6 +128,12 @@ class Data extends Component {
       this.getTimesheet();
       this.getProjectTextValue();
       console.log(this.state.projectTextValue);
+    }
+    if (this.state.deleteModal !== prevState.deleteModal) {
+      console.log("hu", this.state.deleteModal);
+      console.log("pre", prevState.deleteModal);
+      this.getData();
+      this.getProjectTextValue();
     }
   }
 
@@ -142,6 +160,7 @@ class Data extends Component {
       description,
       project,
       updateProject,
+
       show,
     } = this.state;
     const { anchorEl } = this.state;
@@ -161,6 +180,7 @@ class Data extends Component {
     const handleClose = () => {
       this.setState({ anchorEl: null });
     };
+    const { deleteModal } = this.state;
 
     return (
       <div>
@@ -197,6 +217,7 @@ class Data extends Component {
                 </form>
 
                 <Button
+                  id="select-project"
                   className="float-right"
                   aria-controls="simple-menu"
                   aria-haspopup="true"
@@ -218,13 +239,11 @@ class Data extends Component {
                   {timesheet.map((project) => (
                     <MenuItem
                       id={project.id}
-                      onClick={
-                        ({ handleClose },
-                        (event) => {
-                          this.setState({ timesheetId: event.target.id });
-                          console.log(event.target.id);
-                        })
-                      }
+                      onClick={(event) => {
+                        this.setState({ timesheetId: event.target.id });
+                        console.log(event.target.id);
+                        this.setState({ anchorEl: null });
+                      }}
                     >
                       {project.project}
                     </MenuItem>
@@ -240,6 +259,7 @@ class Data extends Component {
                 <thead>
                   <ButtonToolbar>
                     <Button
+                      id="Add-Data"
                       variant="primary"
                       onClick={() => this.setState({ addModalShow: true })}
                     >
@@ -275,6 +295,7 @@ class Data extends Component {
                       <td>
                         <ButtonToolbar>
                           <Button
+                            id="edit-data"
                             className="mr-2"
                             variant="info"
                             onClick={() =>
@@ -291,13 +312,6 @@ class Data extends Component {
                           >
                             Edit
                           </Button>
-                          <Button
-                            className="mr-2"
-                            variant="danger"
-                            onClick={() => this.deletRow(item.id)}
-                          >
-                            Delete
-                          </Button>
                           <EditDataRegistration
                             show={this.state.editModalShow}
                             onHide={editModalClose}
@@ -308,6 +322,22 @@ class Data extends Component {
                             endTime={endTime}
                             description={description}
                           />
+                          <Button
+                            id="Delete-data"
+                            className="mr-2"
+                            variant="danger"
+                            onClick={() => {
+                              this.deletRow(item.id);
+                              this.setState(
+                                { deleteModal: !deleteModal },
+                                () => {
+                                  this.getData();
+                                }
+                              );
+                            }}
+                          >
+                            Delete
+                          </Button>
                         </ButtonToolbar>
                       </td>
                     </tr>

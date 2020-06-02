@@ -38,7 +38,7 @@ class NavbareTimesheet extends Component {
             <Button href="/home" color="inherit">
               Personal schedule
             </Button>
-            <Button href="/addProject" color="inherit">
+            <Button id="add-project" href="/addProject" color="inherit">
               Add project
             </Button>
             <div>

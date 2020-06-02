@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { Link, Route } from "react-router-dom";
-import Data from "../components/timesheet2";
-import AddProject from "../components/AddProject";
-import DeleteProject from "../components/DeleteProject";
-import EditProject from "../components/EditProject";
-import Signup from "./signup2.Component";
+//import Data from "../components/timesheet2";
+import Data from "./timesheet2";
 
 class Login extends Component {
   state = {};
@@ -14,7 +11,7 @@ class Login extends Component {
       email: "",
       password: "",
       data: [],
-      accountId: "",
+      accountId: " ",
       show: false,
     };
     this.submitHndeler = this.submitHndeler.bind(this);
@@ -35,24 +32,21 @@ class Login extends Component {
         if (result === null) {
           alert("fout");
         } else {
-          
-             //console.log(result.id);
-          this.setState({ show: true });
-          this.setState({ accountId: result.id });
-          //console.log(this.state.accountId);
+          this.setState({ accountId: result.id }, () => {});
+          localStorage.setItem("accountId", result.id);
           window.location.replace("/nav");
-          
-        
-         
         }
       });
 
     event.preventDefault();
   }
+  componentDidMount() {
+    if (localStorage.getItem("accountId")) {
+      this.setState({ accountId: this.state.accountId });
+    }
+  }
 
   render() {
-    const { show } = this.state;
-    var { accountId } = this.state;
     return (
       <div>
         <div className="auth-wrapper">
@@ -122,10 +116,6 @@ class Login extends Component {
               </div>
             </form>
           </div>
-        </div>
-        <div>
-          {show && <Data accountIdFromLogIn={accountId} /> &&
-            console.log({ accountId })}
         </div>
       </div>
     );

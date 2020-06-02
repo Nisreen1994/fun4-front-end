@@ -14,7 +14,17 @@ class DeleteProject extends Component {
     };
   }
   getTimesheet() {
-    fetch("http://localhost:8080/account/1/timesheet", { method: "GET" })
+    var id = localStorage.getItem("accountId");
+    if (id === null) {
+      localStorage.setItem("accountId", 1);
+      id = localStorage.getItem("accountId");
+    } else {
+      id = localStorage.getItem("accountId");
+    }
+    console.log("id=", id);
+    fetch("http://localhost:8080/account/" + id + "/timesheet", {
+      method: "GET",
+    })
       .then((response) => response.json())
       .then((result) => {
         this.setState({ timesheet: result });

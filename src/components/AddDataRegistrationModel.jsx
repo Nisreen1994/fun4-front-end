@@ -119,7 +119,9 @@ class AddDataRegistrationModel extends Component {
                     />
                   </Form.Group>
                   <Form.Group controlId="submit">
-                    <Button type="submit">Add</Button>
+                    <Button id="add-Data-Form" type="submit">
+                      Add
+                    </Button>
                   </Form.Group>
                 </Form>
               </Col>
@@ -127,7 +129,9 @@ class AddDataRegistrationModel extends Component {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button id="Close-form" onClick={this.props.onHide}>
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
     );

@@ -10,11 +10,19 @@ class EditProject extends Component {
     };
   }
   handelSubmit(event) {
+    var id = localStorage.getItem("accountId");
+    if (id === null) {
+      localStorage.setItem("accountId", 1);
+      id = localStorage.getItem("accountId");
+    } else {
+      id = localStorage.getItem("accountId");
+    }
+    console.log("id=", id);
     event.preventDefault();
     if (this.props.timesheetId === "") {
       alert("Select a project");
     } else {
-      const url = "http://localhost:8080/account/1/timesheet/";
+      const url = "http://localhost:8080/account/" + id + "/timesheet/";
       var data = this.state;
       fetch(url + this.props.timesheetId, {
         method: "PUT",

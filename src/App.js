@@ -1,18 +1,13 @@
 import React from "react";
 import "./App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-//import { Router, Switch, Route, Link, withRouter } from "react-router-dom";
 import Login from "./components/login.Component";
 import Signup from "./components/signup.Component";
 import Data from "./components/timesheet2";
 import AddProject from "./components/AddProject";
 import NavbareTimesheet from "./components/NavbareTimesheet";
-import { createBrowserHistory } from "history";
-import { PlacesAirportShuttle } from "material-ui/svg-icons";
 import DeleteProject from "./components/DeleteProject";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-//import history from "./history";
-const history = createBrowserHistory();
 
 function App() {
   return (

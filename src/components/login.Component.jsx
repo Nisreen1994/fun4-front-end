@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Link, Route } from "react-router-dom";
 
-import Data from "./timesheet2";
-
 class Login extends Component {
   state = {};
   constructor(props) {

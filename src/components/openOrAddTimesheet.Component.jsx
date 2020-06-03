@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Data2 from "../components/timesheetTable";
 import { Button, ButtonToolbar } from "react-bootstrap";
 import { Switch } from "react-router";
 import App from "../App";

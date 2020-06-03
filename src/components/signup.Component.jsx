@@ -17,8 +17,6 @@ class Signup extends Component {
   }
 
   submitHndeler(event) {
-    // TODO
-
     let url = "http://localhost:8080/account/";
     var data = this.state;
     fetch(url, {

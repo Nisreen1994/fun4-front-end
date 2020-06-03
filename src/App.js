@@ -4,7 +4,6 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 //import { Router, Switch, Route, Link, withRouter } from "react-router-dom";
 import Login from "./components/login.Component";
 import Signup from "./components/signup.Component";
-import Signup2 from "./components/signup2.Component";
 import Data from "./components/timesheet2";
 import AddProject from "./components/AddProject";
 import NavbareTimesheet from "./components/NavbareTimesheet";

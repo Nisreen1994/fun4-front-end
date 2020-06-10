@@ -41,7 +41,6 @@ class Data extends Component {
       timesheet: [],
       timesheetId: "",
       anchorEl: null,
-      //accountId: "",
       projectName: [],
       projectTextValue: "",
       deleteid: "",

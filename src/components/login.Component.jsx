@@ -28,7 +28,7 @@ class Login extends Component {
       .then((res) => res.json())
       .then((result) => {
         if (result === null) {
-          alert("fout");
+          alert("you are not registerd!");
         } else {
           this.setState({ accountId: result.id }, () => {});
           localStorage.setItem("accountId", result.id);

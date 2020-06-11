@@ -9,6 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import EditProject from "./EditProject";
 // TEST trigger Jenkins by github
+//test
 const useStyles = makeStyles(
   createStyles({
     root: {
@@ -52,9 +53,6 @@ class Data extends Component {
     var id = localStorage.getItem("accountId");
     if (id === null || id == 1) {
       var url = "http://localhost:8080/account/1/timesheet";
-
-      //localStorage.setItem("accountId", 1);
-      //id = localStorage.getItem("accountId");
     } else {
       id = localStorage.getItem("accountId");
       var url = "http://localhost:8080/account/" + id + "/timesheet";

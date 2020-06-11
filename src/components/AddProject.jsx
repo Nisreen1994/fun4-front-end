@@ -13,16 +13,12 @@ class AddProject extends Component {
     var id = localStorage.getItem("accountId");
     if (id === null || id == 1) {
       var url = "http://localhost:8080/account/1/timesheet";
-
-      //localStorage.setItem("accountId", 1);
-      //id = localStorage.getItem("accountId");
     } else {
-      //id = localStorage.getItem("accountId");
       var url = "http://localhost:8080/account/" + id + "/timesheet";
     }
     console.log("id=", id);
     event.preventDefault();
-    //const url = "http://localhost:8080/account/" + id + "/timesheet";
+
     var data = this.state;
     fetch(url, {
       method: "POST",

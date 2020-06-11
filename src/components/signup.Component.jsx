@@ -36,8 +36,6 @@ class Signup extends Component {
     event.preventDefault();
   }
 
-  /*handleCheckboxChange = event =>
-    this.setState({ checked: event.target.checked });*/
   render() {
     return (
       <div className="auth-wrapper">
